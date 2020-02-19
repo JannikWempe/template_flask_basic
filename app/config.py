@@ -1,18 +1,30 @@
 import os
-from dotenv import load_dotenv
-
-dotenv_path = os.path.join(os.path.dirname(__file__), ".env")
-load_dotenv(dotenv_path)
 
 
-class Dev:
-    """Set Flask configuration vars from .env file."""
+class DefaultConfig(object):
+    """Default Flask config for all environments."""
 
-    # General
-    TESTING = os.environ.get("TESTING")
-    FLASK_DEBUG = os.environ.get("FLASK_DEBUG")
+    PROJECT_NAME = "StoreLayouter"
     SECRET_KEY = os.environ.get("SECRET_KEY")
 
     # SQLAlchemy
-    SQLALCHEMY_TRACK_MODIFICATIONS = os.environ.get("SQLALCHEMY_TRACK_MODIFICATIONS")
+    SQLALCHEMY_TRACK_MODIFICATIONS = False
     SQLALCHEMY_DATABASE_URI = os.environ.get("SQLALCHEMY_DATABASE_URI")
+
+
+class DevelopmentConfig(DefaultConfig):
+    """Flask config for development environment."""
+
+    TESTING = True
+    FLASK_DEBUG = True
+
+
+class ProductionConfig(DefaultConfig):
+    """Flask config for production environment."""
+
+    TESTING = False
+    FLASK_DEBUG = False
+
+
+# FLASK_ENV must be set to one of the keys in order to select the correct config
+configurations = {"production": ProductionConfig, "development": DevelopmentConfig}
