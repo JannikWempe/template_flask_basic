@@ -1,7 +1,9 @@
 import os
 
 from flask import Flask
+from flask_cors import CORS
 from flask_sqlalchemy import SQLAlchemy
+from flask_basicauth import BasicAuth
 from dotenv import load_dotenv
 
 from app.config import configurations as c
@@ -21,12 +23,30 @@ def create_app(testing=False):
 
     dotenv_path = os.path.join(os.path.dirname(__file__), f".env.{flask_env}")
     load_dotenv(dotenv_path, verbose=True)
+
     app = Flask(__name__, instance_relative_config=False)
-    app.config.from_object(config)
+
+    config_instance = config()  # needed to run the config class and populate properties
+    app.config.from_object(config_instance)
+    if config_instance.DEBUG:
+        print_used_config(app)
+
     db.init_app(app)
+    if flask_env == "production":
+        CORS(None)  # TODO: specify CORS for production use
+        BasicAuth(app)
+    else:
+        CORS(app)  # Access-Control-Allow-Origin: '*' by default
 
     with app.app_context():
         from .blog.routes import blog_bp
 
         app.register_blueprint(blog_bp, url_prefix="/blog", cli_group="blog")
         return app
+
+
+def print_used_config(app):
+    print("USED CONFIG VALUES:")
+    ordered_used_config = sorted(app.config.items(), key=lambda el: el[0])
+    for single_config in ordered_used_config:
+        print(single_config)
