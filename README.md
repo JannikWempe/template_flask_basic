@@ -12,3 +12,6 @@
   - black
   - flake8
   - editorconfig
+
+## Todos
+- [ ] change to Flask-RESTful

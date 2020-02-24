@@ -1,6 +1,6 @@
 import os
 
-from flask import Flask
+from flask_api import FlaskAPI
 from flask_cors import CORS
 from flask_sqlalchemy import SQLAlchemy
 from flask_basicauth import BasicAuth
@@ -24,7 +24,7 @@ def create_app(testing=False):
     dotenv_path = os.path.join(os.path.dirname(__file__), f".env.{flask_env}")
     load_dotenv(dotenv_path, verbose=True)
 
-    app = Flask(__name__, instance_relative_config=False)
+    app = FlaskAPI(__name__)
 
     config_instance = config()  # needed to run the config class and populate properties
     app.config.from_object(config_instance)

@@ -13,7 +13,7 @@ def create():
 
 
 @blog_bp.cli.command("populate_tables")
-def create():
+def populate():
     from .models import BlogPost
     from app import db
 
