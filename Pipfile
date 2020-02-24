@@ -11,6 +11,8 @@ black = "==19.10b0"
 flask = "*"
 flask-sqlalchemy = "*"
 python-dotenv = "*"
+flask-cors = "*"
+flask-basicauth = "*"
 
 [requires]
 python_version = "3.7"
