@@ -24,14 +24,14 @@ class DevelopmentConfig(DefaultConfig):
     """Flask config for development environment."""
 
     TESTING = True
-    FLASK_DEBUG = True
+    DEBUG = True
 
 
 class ProductionConfig(DefaultConfig):
     """Flask config for production environment."""
 
     TESTING = False
-    FLASK_DEBUG = False
+    DEBUG = False
 
     @property
     def BASIC_AUTH_USERNAME(self):
