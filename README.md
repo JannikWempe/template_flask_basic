@@ -1,4 +1,4 @@
-# Basic starter for flask
+# Basic template for flask
 
 ## Features
 - [factory pattern](https://flask.palletsprojects.com/en/1.1.x/patterns/appfactories/) using [blueprints](https://flask.palletsprojects.com/en/1.1.x/blueprints/) _(recommended)_
